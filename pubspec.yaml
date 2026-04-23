@@ -9,10 +9,11 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
-  animate_do: ^5.1.0
-  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  animate_do: ^5.1.0
   flutter_native_splash: ^2.4.7
   shared_preferences: ^2.5.5
   smooth_page_indicator: ^2.0.1
@@ -22,6 +23,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  equatable: ^2.0.8
+  flutter_bloc: ^9.1.1
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.0.0
+  flutter_map: ^7.0.0
+  latlong2: ^0.9.1
+  geocoding: ^3.0.0
+
 flutter:
 
   uses-material-design: true
@@ -29,6 +38,7 @@ flutter:
   assets:
     - assets/images/
     
+
 
 
 

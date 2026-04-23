@@ -70,6 +70,9 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
           ),
         ],
       ),
+      
     );
   }
+  
 }
+
