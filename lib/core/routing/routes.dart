@@ -1,5 +1,5 @@
 class Routes {
   static const String AnimatedSplashScreen = '/SplashScreen';
-  static const String onBoardingScreen = '/OnBoardingScreen';
-  static const String loginScreen = '/LoginScreen';
+  static const String onBoardingScreen = '/onboarding';
+  static const String loginScreen = '/login';
 }
