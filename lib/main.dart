@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safety_app/core/routing/app_router.dart';
 import 'package:safety_app/core/routing/routes.dart';
 import 'package:safety_app/features/splash/animated_splash_screen.dart';
@@ -16,16 +17,13 @@ class SafetyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Safety App',
-      theme: ThemeData(
-        
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+    return ScreenUtilInit(
+      designSize: Size(393, 852),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Safety App',
+        home: const HomeScreen(),
       ),
-      home: const HomeScreen()
-      ,
     );
   }
 }
-
