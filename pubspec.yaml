@@ -15,6 +15,9 @@ dependencies:
 
   animate_do: ^5.1.0
   flutter_native_splash: ^2.4.7
+  flutter_screenutil: ^5.9.3
+  google_fonts: ^8.0.2
+
   shared_preferences: ^2.5.5
   smooth_page_indicator: ^2.0.1
 
@@ -36,8 +39,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
-    
+    - assets/
+  #   - images/a_dot_ham.jpeg
 
 
 

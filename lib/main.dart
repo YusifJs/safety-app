@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:safety_app/core/helpers/cache_helper.dart';
-import 'package:safety_app/core/routing/app_router.dart';
-import 'package:safety_app/core/routing/routes.dart';
-import 'package:safety_app/features/splash/animated_splash_screen.dart';
-import 'package:safety_app/features/auth/presentation/pages/sign_up_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:safety_app/core/constants/app_colors.dart';
+import 'package:safety_app/core/utils/helpers/cache_helper.dart';
 import 'package:safety_app/features/home/peresntation/pages/home_screen.dart';
-import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,15 +16,25 @@ class SafetyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Safety App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return ScreenUtilInit(
+      designSize: Size(393, 852),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.mainBgColor,
+          appBarTheme: AppBarTheme(backgroundColor: AppColors.mainBgColor),
+        ),
+        //to make the app RTL
+        builder: (context, child) {
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            child: child!,
+          );
+        },
+        title: 'Safety App',
+        home: const HomeScreen(),
       ),
 
-      // home: const HomeScreen(),
-      home: const ReportPagesController(),
     );
   }
 }

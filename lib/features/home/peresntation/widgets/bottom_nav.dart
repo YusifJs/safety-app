@@ -8,20 +8,17 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-   int currentIndex = 3;
+  int currentIndex = 3;
   @override
   Widget build(BuildContext context) {
-     final items = [
+    final items = [
       {"icon": Icons.person_outline, "label": "صفحتي"},
       {"icon": Icons.help_outline, "label": "المساعدة"},
       {"icon": Icons.inventory_2_outlined, "label": "ممتلكاتي"},
       {"icon": Icons.home_outlined, "label": "الرئيسية"},
     ];
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
@@ -49,10 +46,7 @@ class _BottomNavState extends State<BottomNav> {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: isSelected
                     ? const Color(0xff174C8A).withOpacity(0.12)
@@ -63,9 +57,7 @@ class _BottomNavState extends State<BottomNav> {
                 children: [
                   Icon(
                     items[index]["icon"] as IconData,
-                    color: isSelected
-                        ? const Color(0xff174C8A)
-                        : Colors.grey,
+                    color: isSelected ? const Color(0xff174C8A) : Colors.grey,
                     size: 24,
                   ),
                   if (isSelected) ...[
