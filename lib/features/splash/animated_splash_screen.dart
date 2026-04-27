@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:safety_app/core/helpers/cache_helper.dart';
+import 'package:safety_app/core/utils/helpers/cache_helper.dart';
 import 'package:safety_app/core/routing/routes.dart';
 
 class AnimatedSplashScreen extends StatefulWidget {
@@ -70,9 +70,6 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
           ),
         ],
       ),
-      
     );
   }
-  
 }
-
