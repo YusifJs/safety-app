@@ -12,7 +12,6 @@ void main() async {
   await CacheHelper.init();
 
   runApp(SafetyApp());
-
 }
 
 class SafetyApp extends StatelessWidget {
@@ -27,9 +26,8 @@ class SafetyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
 
-      home: const HomeScreen(),
-
-      // home: const ReportPagesController(),
+      // home: const HomeScreen(),
+      home: const ReportPagesController(),
     );
   }
 }
