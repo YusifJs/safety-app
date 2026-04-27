@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:safety_app/core/utils/helpers/cache_helper.dart';
+import 'package:safety_app/core/routing/routes.dart';
 
 class AnimatedSplashScreen extends StatefulWidget {
   const AnimatedSplashScreen({super.key});
-  static const String routeName = '/SplashScreen';
   @override
   State<AnimatedSplashScreen> createState() => _AnimatedSplashScreenState();
 }
 
 class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
   @override
-  void SetState() {
+  void initState() {
     super.initState();
     _startAnimationSequence();
   }
@@ -19,7 +20,15 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
   _startAnimationSequence() async {
     await Future.delayed(const Duration(seconds: 1));
     FlutterNativeSplash.remove();
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+    bool? onBoardingDone =
+        await CacheHelper.getData(key: 'onboarding_completed') ?? false;
+    if (onBoardingDone) {
+      Navigator.pushReplacementNamed(context, Routes.loginScreen);
+    } else {
+      Navigator.pushReplacementNamed(context, Routes.onBoardingScreen);
+    }
   }
 
   Widget build(BuildContext context) {
