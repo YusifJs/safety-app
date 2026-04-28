@@ -10,13 +10,20 @@ class ReportState extends Equatable {
   final LatLng? selectedLocation;
   final String? locationName;
 
+  final bool isSubmitting;
+  final bool isSubmitted;
+  final String? errorMessage;
+
   const ReportState({
-    this.currentStep = 2,
+    this.currentStep = 1,
     this.isNow = true,
     this.date,
     this.time,
     this.selectedLocation,
     this.locationName,
+    this.isSubmitting = false,
+    this.isSubmitted = false,
+    this.errorMessage,
   });
 
   ReportState copyWith({
@@ -26,6 +33,9 @@ class ReportState extends Equatable {
     TimeOfDay? time,
     LatLng? selectedLocation,
     String? locationName,
+    bool? isSubmitting,
+    bool? isSubmitted,
+    String? errorMessage,
   }) {
     return ReportState(
       currentStep: currentStep ?? this.currentStep,
@@ -34,9 +44,22 @@ class ReportState extends Equatable {
       time: time ?? this.time,
       selectedLocation: selectedLocation ?? this.selectedLocation,
       locationName: locationName ?? this.locationName,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      isSubmitted: isSubmitted ?? this.isSubmitted,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [currentStep, isNow, date, time, selectedLocation, locationName];
+  List<Object?> get props => [
+        currentStep,
+        isNow,
+        date,
+        time,
+        selectedLocation,
+        locationName,
+        isSubmitting,
+        isSubmitted,
+        errorMessage,
+      ];
 }

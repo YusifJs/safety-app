@@ -63,4 +63,15 @@ void previousStep() {
       );
     }
   }
+  Future<void> submitReport() async {
+  emit(state.copyWith(isSubmitting: true));
+
+  try {
+    await Future.delayed(const Duration(seconds: 2)); 
+
+    emit(state.copyWith(isSubmitting: false, isSubmitted: true));
+  } catch (e) {
+    emit(state.copyWith(isSubmitting: false));
+  }
+}
 }
