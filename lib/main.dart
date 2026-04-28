@@ -34,7 +34,6 @@ class SafetyApp extends StatelessWidget {
         title: 'Safety App',
         home: const HomeScreen(),
       ),
-
     );
   }
 }
