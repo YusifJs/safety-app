@@ -15,6 +15,8 @@ class ActionButtons extends StatelessWidget {
         final isFirstStep = state.currentStep == 1;
         final isLastStep = state.currentStep == 3;
 
+        final canGoNext = !isFirstStep || state.selectedReportType != null;
+
         return Row(
           children: [
             // BACK BUTTON
@@ -40,24 +42,29 @@ class ActionButtons extends StatelessWidget {
 
             if (!isFirstStep) const SizedBox(width: 10),
 
-            // MAIN BUTTON
+            // NEXT / SUBMIT BUTTON
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[800],
+                  backgroundColor: canGoNext ? Colors.blue[800] : Colors.grey,
+
                   padding: const EdgeInsets.symmetric(vertical: 16),
+
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: () {
-                  if (isLastStep) {
-                    // submit action
-                    cubit.submitReport(); // لو عندك function
-                  } else {
-                    cubit.nextStep();
-                  }
-                },
+
+                onPressed: canGoNext
+                    ? () {
+                        if (isLastStep) {
+                          cubit.submitReport();
+                        } else {
+                          cubit.nextStep();
+                        }
+                      }
+                    : null,
+
                 child: Text(
                   isLastStep ? "إرسال" : "التالي",
                   style: const TextStyle(color: Colors.white),

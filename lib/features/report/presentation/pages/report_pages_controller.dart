@@ -103,7 +103,7 @@ class ReportPagesController extends StatelessWidget {
             Align(
               alignment: AlignmentGeometry.centerRight,
               child: Text(
-                "مراجعة البلاغ وإرساله",
+                "تفاصيل البلاغ",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),
