@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:safety_app/features/Report_details/views/widgets/attach_container.dart';
-import 'package:safety_app/features/Report_details/views/widgets/custom_app_bar.dart';
 import 'package:safety_app/features/Report_details/views/widgets/map_container.dart';
 import 'package:safety_app/features/Report_details/views/widgets/process_container.dart';
 import 'package:safety_app/features/Report_details/views/widgets/report_details_container.dart';
 import 'package:safety_app/features/Report_details/views/widgets/report_steps.dart';
+import 'package:safety_app/features/Reports_register/views/widgets/custom_appbar.dart';
 
 class ReportDetailsViewBody extends StatelessWidget {
   const ReportDetailsViewBody({super.key});
