@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomDetailsAppbar extends StatelessWidget {
-  const CustomDetailsAppbar({super.key});
+class CustomAlertsAppbar extends StatelessWidget {
+  const CustomAlertsAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class CustomDetailsAppbar extends StatelessWidget {
           ),
           SizedBox(width: 20),
           Text(
-            "تفاصيل البلاغ",
+            "التنبيهات",
             style: GoogleFonts.almarai(
               fontSize: 22,
               fontWeight: FontWeight.bold,
