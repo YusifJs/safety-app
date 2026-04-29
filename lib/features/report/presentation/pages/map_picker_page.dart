@@ -29,8 +29,9 @@ class _MapPickerPageState extends State<MapPickerPage> {
 
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever)
+        permission == LocationPermission.deniedForever) {
       return;
+    }
 
     Position position = await Geolocator.getCurrentPosition();
 

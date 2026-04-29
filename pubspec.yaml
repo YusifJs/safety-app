@@ -9,27 +9,37 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
+  animate_do: ^5.1.0
+  build_runner: ^2.14.1
+  cupertino_icons: ^1.0.8
+  dio: ^5.9.2
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
-
-  animate_do: ^5.1.0
   flutter_native_splash: ^2.4.7
+  flutter_screenutil: ^5.9.3
+  geocoding: ^4.0.0
+  geolocator: ^14.0.2
+  get_it: ^9.2.1
+  google_maps_flutter: ^2.17.0
+  json_annotation: ^4.11.0
+  json_serializable: ^6.13.1
+  retrofit_generator: ^10.2.5
   shared_preferences: ^2.5.5
   smooth_page_indicator: ^2.0.1
 
+  
+
 dev_dependencies:
+  equatable: ^2.0.8
+  flutter_bloc: ^9.1.1
   flutter_lints: ^6.0.0
+  flutter_map: ^8.3.0
+
   flutter_test:
     sdk: flutter
 
-  equatable: ^2.0.8
-  flutter_bloc: ^9.1.1
-  google_maps_flutter: ^2.5.0
-  geolocator: ^10.0.0
-  flutter_map: ^7.0.0
   latlong2: ^0.9.1
-  geocoding: ^3.0.0
+  location: ^8.0.1
 
 flutter:
 
@@ -37,11 +47,7 @@ flutter:
 
   assets:
     - assets/images/
-    
-
-
-
-
+    - assets/icons/
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

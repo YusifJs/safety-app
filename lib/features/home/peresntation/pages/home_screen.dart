@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safety_app/core/routing/routes.dart';
 import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
 import '../widgets/action_card.dart';
 
@@ -10,8 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ActionCard(
                     title: "رافقني",
                     icon: Icons.location_on_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.followMeScreen);
+                    },
                   ),
                 ),
               ],
@@ -78,10 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
-      leading: const Icon(
-        Icons.notifications_none,
-        color: Colors.grey,
-      ),
+      leading: const Icon(Icons.notifications_none, color: Colors.grey),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -98,18 +96,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Text(
                 "ابق في أمان",
-                style: TextStyle(
-                  color: Color(0xff174C8A),
-                  fontSize: 20,
-                ),
+                style: TextStyle(color: Color(0xff174C8A), fontSize: 20),
               ),
             ],
           ),
           const SizedBox(width: 10),
           const CircleAvatar(
-            backgroundImage: AssetImage(
-              'assets/images/1775826274282 1.png',
-            ),
+            backgroundImage: AssetImage('assets/images/1775826274282 1.png'),
           ),
         ],
       ),
@@ -120,32 +113,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildWarningBanner() {
     return Container(
-      
-      padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
-        color:  Colors.white,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: const Row(
         children: [
-          Icon(
-            Icons.arrow_back_ios,
-            size: 14,
-            color: Colors.black54,
-          ),
+          Icon(Icons.arrow_back_ios, size: 14, color: Colors.black54),
           Spacer(),
-          Text(
-            "أكمل ملفك الشخصي لضمان حمايتك",
-            style: TextStyle(fontSize: 20),
-          ),
+          Text("أكمل ملفك الشخصي لضمان حمايتك", style: TextStyle(fontSize: 20)),
           SizedBox(width: 10),
-          Icon(
-            Icons.warning_amber_rounded,
-            color: Colors.orange,
-          ),
+          Icon(Icons.warning_amber_rounded, color: Colors.orange),
         ],
       ),
     );
@@ -172,11 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.shield_outlined,
-                color: Colors.white,
-                size: 50,
-              ),
+              Icon(Icons.shield_outlined, color: Colors.white, size: 50),
               Text(
                 "SOS",
                 style: TextStyle(
@@ -190,10 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   "اضغط مطولاً لإرسال إشارة استغاثة فورية",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
             ],
@@ -211,17 +183,11 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           "عرض الكل",
-          style: TextStyle(
-            color: Color(0xff174C8A),
-            fontSize: 12,
-          ),
+          style: TextStyle(color: Color(0xff174C8A), fontSize: 12),
         ),
         Text(
           "النشاطات الأخيرة",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -245,48 +211,31 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 5,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               status,
-              style: TextStyle(
-                color: statusColor,
-                fontSize: 15,
-              ),
+              style: TextStyle(color: statusColor, fontSize: 15),
             ),
           ),
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
               Text(
                 time,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15,
-                ),
+                style: const TextStyle(color: Colors.grey, fontSize: 15),
               ),
             ],
           ),
           const SizedBox(width: 15),
           const CircleAvatar(
             backgroundColor: Color(0xffF1F4F7),
-            child: Icon(
-              Icons.insert_drive_file_outlined,
-              size: 20,
-            ),
+            child: Icon(Icons.insert_drive_file_outlined, size: 20),
           ),
         ],
       ),
@@ -294,6 +243,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //================ Custom Bottom Nav ================
-
-  
-  }
+}

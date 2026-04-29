@@ -17,13 +17,13 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
     _startAnimationSequence();
   }
 
-  _startAnimationSequence() async {
+  Future<void> _startAnimationSequence() async {
     await Future.delayed(const Duration(seconds: 1));
     FlutterNativeSplash.remove();
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
     bool? onBoardingDone =
-        await CacheHelper.getData(key: 'onboarding_completed') ?? false;
+        CacheHelper.getData(key: 'onboarding_completed') ?? false;
     if (onBoardingDone) {
       Navigator.pushReplacementNamed(context, Routes.loginScreen);
     } else {
@@ -31,6 +31,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffffffff),
@@ -70,9 +71,6 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen> {
           ),
         ],
       ),
-      
     );
   }
-  
 }
-
