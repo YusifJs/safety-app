@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../widgets/map_section.dart';
 import '../widgets/date_time_section.dart';
 
-class Step2content extends StatelessWidget {
-  const Step2content({super.key});
+class Step2Content extends StatelessWidget {
+  const Step2Content({super.key});
 
   @override
   Widget build(BuildContext context) {

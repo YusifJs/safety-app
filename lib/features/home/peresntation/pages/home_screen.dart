@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:safety_app/core/constants/app_assets.dart';
+import 'package:safety_app/core/constants/app_colors.dart';
+import 'package:safety_app/core/utils/extensions/context_extension.dart';
 import 'package:safety_app/features/home/peresntation/pages/help_page.dart';
 import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
+import 'package:safety_app/features/widgets/custom_dialog_image.dart';
 import '../widgets/action_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,7 +52,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ActionCard(
                     title: "رافقني",
                     icon: Icons.location_on_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      context.showCustomDialog(
+                        dialogImage: CustomDialogImage(
+                          iconPath: AppAssets.lockIcon,
+                          iconColor: AppColors.white,
+                          bgColor: AppColors.blue,
+                        ),
+                        title: 'تنبيه : ‘ميزة رافقني’ حصرية لمشتركين سلام مميز',
+                        description:
+                            ' أنت تستخدم حالياً النسخة المجانية. للاستفادة من خاصية التتبع الحي والحماية الاستباقية، يرجى الاشتراك في باقة "مميز" لتنعم براحة بال كاملة أينما كنت.',
+                        button1: 'اشترك في سلام مميز',
+                        button2: 'العودة للرئيسية',
+                      );
+                    },
                   ),
                 ),
               ],
