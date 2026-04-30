@@ -68,7 +68,6 @@ class Step3Content extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // ================= ATTACHMENT BUTTONS (UNCHANGED UI) =================
             Row(
               children: [
                 Expanded(
@@ -110,7 +109,6 @@ class Step3Content extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // ================= IMAGES PREVIEW (NEW - DOES NOT CHANGE UI ABOVE) =================
             BlocBuilder<ReportCubit, ReportState>(
               builder: (context, state) {
                 if (state.images.isEmpty) return const SizedBox();
@@ -129,7 +127,6 @@ class Step3Content extends StatelessWidget {
 
                     return Stack(
                       children: [
-                        // IMAGE
                         Positioned.fill(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -140,7 +137,6 @@ class Step3Content extends StatelessWidget {
                           ),
                         ),
 
-                        // LOADING OVERLAY
                         if (item.status == UploadStatus.uploading)
                           Positioned.fill(
                             child: Container(
@@ -157,7 +153,6 @@ class Step3Content extends StatelessWidget {
                             ),
                           ),
 
-                        // SUCCESS ICON
                         if (item.status == UploadStatus.success)
                           const Positioned(
                             top: 6,
@@ -168,7 +163,6 @@ class Step3Content extends StatelessWidget {
                             ),
                           ),
 
-                        // FAILED ICON
                         if (item.status == UploadStatus.failed)
                           const Positioned(
                             top: 6,
