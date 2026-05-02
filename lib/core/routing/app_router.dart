@@ -5,6 +5,7 @@ import 'package:safety_app/features/auth/presentation/pages/sign_up_screen.dart'
 import 'package:safety_app/features/follow-me/presentation/screens/follow_me_screen.dart';
 import 'package:safety_app/features/home/peresntation/pages/home_screen.dart';
 import 'package:safety_app/features/onboarding/onboarding_screen.dart';
+import 'package:safety_app/features/payment-plan/presentation/payment_methods_screen.dart';
 import 'package:safety_app/features/splash/animated_splash_screen.dart';
 
 class AppRouter {
@@ -23,6 +24,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case Routes.followMeScreen:
         return MaterialPageRoute(builder: (_) => RafiqnyMapScreen());
+      case Routes.PaymentScreen:
+        return MaterialPageRoute(builder: (_) => PaymentMethodsScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

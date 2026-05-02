@@ -13,8 +13,10 @@ dependencies:
   build_runner: ^2.14.1
   cupertino_icons: ^1.0.8
   dio: ^5.9.2
+  dotted_border: ^3.1.0
   flutter:
     sdk: flutter
+  flutter_credit_card: ^4.1.0
   flutter_native_splash: ^2.4.7
   flutter_screenutil: ^5.9.3
   geocoding: ^4.0.0
@@ -26,8 +28,6 @@ dependencies:
   retrofit_generator: ^10.2.5
   shared_preferences: ^2.5.5
   smooth_page_indicator: ^2.0.1
-
-  
 
 dev_dependencies:
   equatable: ^2.0.8

@@ -29,7 +29,7 @@ class SafetyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
 
-          initialRoute: Routes.homeScreen,
+          initialRoute: Routes.PaymentScreen,
           onGenerateRoute: AppRouter().generateRoute,
 
           // home: const ReportPagesController(),

@@ -18,7 +18,6 @@ class ReportCubit extends Cubit<ReportState> {
   void startTrip() {
     if (state.duration == null) return;
 
-   
     int initialMinutes = int.tryParse(state.duration!.split(' ')[0]) ?? 0;
     int totalSeconds = initialMinutes * 60;
 
@@ -38,32 +37,28 @@ class ReportCubit extends Cubit<ReportState> {
         emit(
           state.copyWith(
             remainingSeconds: newSeconds,
-            remainingTime: (newSeconds / 60).ceil(), 
+            remainingTime: (newSeconds / 60).ceil(),
           ),
         );
-
 
         if (newSeconds == 30) {
           emit(state.copyWith(showAlmostFinishedDialog: true));
         }
       } else {
         timer.cancel();
-        _triggerAutomaticReport(); 
+        _triggerAutomaticReport();
       }
     });
   }
 
   void _triggerAutomaticReport() {
     emit(state.copyWith(showSafetyCheck: true));
- 
   }
 
-  
   void activateManualReport() {
     emit(
       state.copyWith(showSafetyCheck: false, showAlmostFinishedDialog: false),
     );
- 
   }
 
   void finishTrip() {
@@ -80,8 +75,6 @@ class ReportCubit extends Cubit<ReportState> {
       ),
     );
   }
-
-  
 
   Future<void> setLocation(LatLng location) async {
     try {
@@ -106,13 +99,15 @@ class ReportCubit extends Cubit<ReportState> {
   }
 
   void nextStep() {
-    if (state.currentStep < 3)
+    if (state.currentStep < 3) {
       emit(state.copyWith(currentStep: state.currentStep + 1));
+    }
   }
 
   void previousStep() {
-    if (state.currentStep > 1)
+    if (state.currentStep > 1) {
       emit(state.copyWith(currentStep: state.currentStep - 1));
+    }
   }
 
   void toggleNow(bool value) => emit(state.copyWith(isNow: value));

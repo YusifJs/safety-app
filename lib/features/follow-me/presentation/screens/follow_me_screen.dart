@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safety_app/features/follow-me/presentation/widgets/buildActiveTripUI.dart';
 import 'package:safety_app/features/follow-me/presentation/widgets/buildAlmostFinishedOverlay.dart';
 import 'package:safety_app/features/follow-me/presentation/widgets/buildSafetyCheckOverlay.dart';
+
 import 'package:safety_app/features/follow-me/presentation/widgets/build_map.dart';
 import 'package:safety_app/features/follow-me/presentation/widgets/showRouteDetailsBottomSheet.dart';
 import 'package:safety_app/features/report/presentation/cubit/report_cubit.dart';
