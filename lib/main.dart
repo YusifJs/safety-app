@@ -25,7 +25,6 @@ class SafetyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.mainBgColor,
           appBarTheme: AppBarTheme(backgroundColor: AppColors.mainBgColor),
         ),
-        //to make the app RTL
         builder: (context, child) {
           return Directionality(
             textDirection: TextDirection.rtl,
@@ -33,9 +32,8 @@ class SafetyApp extends StatelessWidget {
           );
         },
         title: 'Safety App',
-        home: const ReportPagesController(),
+        home: ReportPagesController(),
       ),
-
     );
   }
 }

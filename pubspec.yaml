@@ -23,7 +23,8 @@ dependencies:
   dotted_border: ^3.1.0
   image_picker: ^1.1.2
   file_picker: ^8.0.0
-  
+
+  flutter_svg: ^2.0.10
 dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
@@ -44,7 +45,7 @@ flutter:
 
   - assets/images/
   - assets/
-
+  - assets/icons/
   #   - images/a_dot_ham.jpeg
 
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:safety_app/core/constants/app_colors.dart';
 import '../cubit/report_cubit.dart';
 import '../cubit/report_state.dart';
 
@@ -32,7 +33,7 @@ class StepperWidget extends StatelessWidget {
       height: 40,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: isActive || isDone ? Colors.blue : Colors.grey[300],
+        color: isActive || isDone ? AppColors.blue : AppColors.white,
         shape: BoxShape.circle,
       ),
       child: isDone
@@ -40,7 +41,7 @@ class StepperWidget extends StatelessWidget {
           : Text(
               "$step",
               style: TextStyle(
-                color: isActive ? Colors.white : Colors.black,
+                color: isActive ? AppColors.white : AppColors.darkGrey,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -52,10 +53,10 @@ class StepperWidget extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 6), 
+        margin: const EdgeInsets.symmetric(horizontal: 6),
         height: 4,
         decoration: BoxDecoration(
-          color: isActive ? Colors.blue : Colors.grey[300],
+          color: isActive ? AppColors.blue : AppColors.white,
           borderRadius: BorderRadius.circular(2),
         ),
       ),
