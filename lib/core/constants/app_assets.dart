@@ -37,4 +37,8 @@ abstract final class AppAssets {
   static final String visualReport = "assets/visual_report.png";
   static final String warningsIcon = "assets/warnings_icon.png";
   static final String watchIcon = "assets/watch_icon.png";
+  static final String flag = "assets/flag.png";
+  static final String instagram = "assets/instagram.png";
+  static final String facebook = "assets/facebook.png";
+  static final String twitter = "assets/twitter.png";
 }

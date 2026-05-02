@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safety_app/core/constants/app_assets.dart';
 import 'package:safety_app/core/constants/app_colors.dart';
 import 'package:safety_app/core/utils/extensions/context_extension.dart';
-import 'package:safety_app/features/home/peresntation/pages/help_page.dart';
+import 'package:safety_app/features/home/peresntation/pages/help_and_support_pages/help_page.dart';
 import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
 import 'package:safety_app/features/widgets/custom_dialog_image.dart';
 import '../widgets/action_card.dart';

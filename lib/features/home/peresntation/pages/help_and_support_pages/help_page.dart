@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safety_app/core/constants/app_colors.dart';
-import 'package:safety_app/core/constants/app_text_style.dart';
 import 'package:safety_app/features/home/data/help_cards_data.dart';
+import 'package:safety_app/features/home/peresntation/pages/help_and_support_pages/contact_us_page.dart';
 import 'package:safety_app/features/home/peresntation/widgets/custom_help_card.dart';
-import 'package:safety_app/features/widgets/notification_button.dart';
+import 'package:safety_app/core/utils/imports.dart';
 
 class HelpPage extends StatelessWidget {
   const HelpPage({super.key});
@@ -12,10 +9,7 @@ class HelpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('المساعدة', style: AppTextStyle.blackBold16),
-        actions: [NotificationButton()],
-      ),
+      appBar: CustomAppBar(title: 'المساعدة'),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -47,12 +41,19 @@ class HelpPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   var card = helpCardsdata[index];
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => card.page,
+                        ),
+                      );
+                    },
                     child: CustomHelpCard(
                       title: card.title,
                       description: card.description,
                       color: card.color,
-                      icon: card.icon,
+                      icon: Image.asset(card.icon),
                     ),
                   );
                 },

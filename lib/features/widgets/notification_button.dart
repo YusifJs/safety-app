@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safety_app/core/constants/app_colors.dart';
+import 'package:safety_app/core/utils/extensions/shadow_extension.dart';
 
 class NotificationButton extends StatelessWidget {
   const NotificationButton({super.key});
@@ -15,18 +16,7 @@ class NotificationButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.white,
           shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withValues(alpha: 0.10),
-              offset: Offset(0, 1),
-              blurRadius: 3,
-            ),
-            BoxShadow(
-              color: AppColors.black.withValues(alpha: 0.10),
-              offset: Offset(0, 1),
-              blurRadius: 2,
-            ),
-          ],
+          boxShadow: AppShadow.primaryShadow,
         ),
         child: Icon(Icons.notifications_none),
       ),
