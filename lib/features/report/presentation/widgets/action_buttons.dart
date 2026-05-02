@@ -12,47 +12,62 @@ class ActionButtons extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<ReportCubit>();
 
+        final isFirstStep = state.currentStep == 1;
+        final isLastStep = state.currentStep == 3;
+
+        final canGoNext = !isFirstStep || state.selectedReportType != null;
+
         return Row(
           children: [
-            Expanded(
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+            // BACK BUTTON
+            if (!isFirstStep)
+              Expanded(
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    side: const BorderSide(color: Colors.blue),
                   ),
-                  side: const BorderSide(color: Colors.blue),
-                ),
-                onPressed: () {
-                  if (state.currentStep > 1) {
+                  onPressed: () {
                     cubit.previousStep();
-                  } else {
-                    Navigator.pop(context);
-                  }
-                },
-                child: const Text("رجوع", style: TextStyle(color: Colors.blue)),
+                  },
+                  child: const Text(
+                    "رجوع",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
               ),
-            ),
 
-            const SizedBox(width: 10),
+            if (!isFirstStep) const SizedBox(width: 10),
 
+            // NEXT / SUBMIT BUTTON
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[800],
+                  backgroundColor: canGoNext ? Colors.blue[800] : Colors.grey,
+
                   padding: const EdgeInsets.symmetric(vertical: 16),
+
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: () {
-                  if (state.currentStep < 3) {
-                    cubit.nextStep();
-                  }
-                },
+
+                onPressed: canGoNext
+                    ? () {
+                        if (isLastStep) {
+                          cubit.submitReport();
+                        } else {
+                          cubit.nextStep();
+                        }
+                      }
+                    : null,
+
                 child: Text(
-                  style: TextStyle(color: Colors.white),
-                  state.currentStep == 3 ? "إنهاء" : "التالي",
+                  isLastStep ? "إرسال" : "التالي",
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),

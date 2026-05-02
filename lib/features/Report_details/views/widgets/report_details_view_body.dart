@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:safety_app/features/Report_details/views/widgets/attach_container.dart';
+import 'package:safety_app/features/Report_details/views/widgets/custom_details_appbar.dart';
 import 'package:safety_app/features/Report_details/views/widgets/map_container.dart';
 import 'package:safety_app/features/Report_details/views/widgets/process_container.dart';
 import 'package:safety_app/features/Report_details/views/widgets/report_details_container.dart';
@@ -17,7 +18,7 @@ class ReportDetailsViewBody extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            CustomAppbar(),
+            CustomDetailsAppbar(),
             SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
