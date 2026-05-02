@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
-class ProfilePicture extends StatefulWidget {
-  ProfilePicture({super.key});
+class ProfileSecondPicture extends StatefulWidget {
+  ProfileSecondPicture({super.key});
 
   @override
-  State<ProfilePicture> createState() => _ProfilePictureState();
+  State<ProfileSecondPicture> createState() => _ProfilePictureState();
 }
 
-class _ProfilePictureState extends State<ProfilePicture> {
+class _ProfilePictureState extends State<ProfileSecondPicture> {
   File? _image;
 
   Future<void> _pickImage() async {
@@ -34,7 +34,6 @@ class _ProfilePictureState extends State<ProfilePicture> {
               : AssetImage("assets/images/profile_picture.jpg"),
           fit: BoxFit.fill,
         ),
-        color: Colors.red,
         borderRadius: BorderRadius.circular(100),
       ),
       child: Stack(
