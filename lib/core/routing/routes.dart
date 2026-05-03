@@ -4,4 +4,6 @@ class Routes {
   static const String loginScreen = '/login';
   static const String supportChat = '/supportChat';
   static const String reportScreenController = '/reportScreenController';
+  static const String ratingScreen = '/ratingScreen';
+
 }

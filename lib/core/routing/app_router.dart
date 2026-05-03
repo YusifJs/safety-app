@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safety_app/core/routing/routes.dart';
 import 'package:safety_app/features/login/login_screen.dart';
 import 'package:safety_app/features/onboarding/onboarding_screen.dart';
+import 'package:safety_app/features/rating/presentation/pages/rating_screen.dart';
 import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
 import 'package:safety_app/features/splash/animated_splash_screen.dart';
 import 'package:safety_app/features/support_chat/presentation/screens/support_chat_screen.dart';
@@ -20,6 +21,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => SupportChatScreen());
       case Routes.reportScreenController:
         return MaterialPageRoute(builder: (_) => ReportPagesController());
+      case Routes.ratingScreen:
+        return MaterialPageRoute(builder: (_) => RatingScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
