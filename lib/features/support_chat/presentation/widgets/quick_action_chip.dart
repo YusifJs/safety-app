@@ -23,10 +23,7 @@ class QuickActionChip extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(24),
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(24),
@@ -34,11 +31,7 @@ class QuickActionChip extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                icon,
-                size: 18,
-                color: textColor ?? AppColors.blue,
-              ),
+              Icon(icon, size: 18, color: textColor ?? AppColors.blue),
               const SizedBox(width: 6),
               Text(
                 text,

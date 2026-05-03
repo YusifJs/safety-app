@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safety_app/core/constants/app_colors.dart';
 import 'package:safety_app/core/utils/helpers/cache_helper.dart';
 import 'package:safety_app/features/home/peresntation/pages/home_screen.dart';
+import 'package:safety_app/features/rating/presentation/pages/rating_screen.dart';
 import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
 import 'package:safety_app/features/support_chat/presentation/screens/support_chat_screen.dart';
 
@@ -33,7 +34,7 @@ class SafetyApp extends StatelessWidget {
           );
         },
         title: 'Safety App',
-        home: SupportChatScreen(),
+        home: RatingScreen(),
       ),
     );
   }
