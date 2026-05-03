@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:safety_app/core/constants/app_assets.dart';
-import 'package:safety_app/core/constants/app_colors.dart';
-import 'package:safety_app/core/constants/app_text_style.dart';
-import 'package:safety_app/features/widgets/custom_dialog_image.dart';
+import 'package:safety_app/core/utils/imports.dart';
 import 'package:safety_app/features/widgets/custom_elevated_button.dart';
 
 class CustomDialog extends StatelessWidget {

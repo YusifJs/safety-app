@@ -1,26 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:safety_app/core/constants/app_assets.dart';
-import 'package:safety_app/core/constants/app_colors.dart';
 import 'package:safety_app/core/utils/extensions/context_extension.dart';
-import 'package:safety_app/features/home/peresntation/pages/help_and_support_pages/help_page.dart';
-import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
+import 'package:safety_app/core/utils/imports.dart';
+import 'package:safety_app/features/home/peresntation/widgets/action_card.dart';
 import 'package:safety_app/features/widgets/custom_dialog_image.dart';
-import '../widgets/action_card.dart';
+import 'package:safety_app/features/widgets/notification_button.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF8FAFF),
       appBar: _buildAppBar(),
-      bottomNavigationBar: const BottomNav(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -37,14 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ActionCard(
                     title: "بلاغ عام",
                     icon: Icons.description_outlined,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const HelpPage(),
-                        ),
-                      );
-                    },
+                    onTap: () {},
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -95,40 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  //================ AppBar ================
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leading: const Icon(Icons.notifications_none, color: Colors.grey),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                "مرحباً، بان الرقب",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                "ابق في أمان",
-                style: TextStyle(color: Color(0xff174C8A), fontSize: 20),
-              ),
-            ],
-          ),
-          const SizedBox(width: 10),
-          CircleAvatar(backgroundImage: AssetImage(AppAssets.bird)),
-        ],
-      ),
-    );
-  }
-
   //================ Warning Banner ================
 
   Widget _buildWarningBanner() {
@@ -145,6 +99,38 @@ class _HomeScreenState extends State<HomeScreen> {
           Text("أكمل ملفك الشخصي لضمان حمايتك", style: TextStyle(fontSize: 20)),
           SizedBox(width: 10),
           Icon(Icons.warning_amber_rounded, color: Colors.orange),
+        ],
+      ),
+    );
+  }
+
+  //================ AppBar ================
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: AppColors.mainBgColor,
+      actions: [NotificationButton()],
+      title: Row(
+        spacing: 10,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Image.asset(AppAssets.bird, scale: 3),
+          const Column(
+            children: [
+              Text(
+                "مرحباً، بان الرقب",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "ابق في أمان",
+                style: TextStyle(color: Color(0xff174C8A), fontSize: 20),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -261,6 +247,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  //================ Custom Bottom Nav ================
 }

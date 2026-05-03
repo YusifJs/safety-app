@@ -7,12 +7,15 @@ class CustomAppBar extends AppBar {
   CustomAppBar({super.key, required String title})
     : super(
         titleSpacing: 0,
-        title: Row(
-          spacing: 4,
-          children: [
-            Image.asset(AppAssets.bird, scale: 4),
-            Text(title, style: AppTextStyle.blackBold16),
-          ],
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Row(
+            spacing: 4,
+            children: [
+              Image.asset(AppAssets.bird, scale: 4),
+              Text(title, style: AppTextStyle.blackBold16),
+            ],
+          ),
         ),
         actions: [NotificationButton()],
       );
