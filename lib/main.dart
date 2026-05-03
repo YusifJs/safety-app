@@ -4,6 +4,7 @@ import 'package:safety_app/core/constants/app_colors.dart';
 import 'package:safety_app/core/utils/helpers/cache_helper.dart';
 import 'package:safety_app/features/home/peresntation/pages/home_screen.dart';
 import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
+import 'package:safety_app/features/support_chat/presentation/screens/support_chat_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class SafetyApp extends StatelessWidget {
           );
         },
         title: 'Safety App',
-        home: ReportPagesController(),
+        home: SupportChatScreen(),
       ),
     );
   }

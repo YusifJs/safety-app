@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ReportPagesController extends StatelessWidget {
   const ReportPagesController({super.key});
+  static const String routeName = '/reportScreenController';
 
   String getAppBarTitle(int step) {
     switch (step) {
