@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:safety_app/core/constants/app_colors.dart';
 import '../cubit/report_cubit.dart';
 import '../cubit/report_state.dart';
 
@@ -15,46 +16,77 @@ class ActionButtons extends StatelessWidget {
         final isFirstStep = state.currentStep == 1;
         final isLastStep = state.currentStep == 3;
 
-        final canGoNext = !isFirstStep || state.selectedReportType != null;
+        final canGoNext = state.currentStep == 1
+            ? state.selectedReportType != null
+            : true;
+
+        if (isFirstStep) {
+          return Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ).copyWith(
+                      backgroundColor: WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        if (states.contains(WidgetState.disabled)) {
+                          return AppColors.blue.withValues(alpha: 0.3);
+                        }
+                        return AppColors.blue;
+                      }),
+                    ),
+                onPressed: canGoNext ? () => cubit.nextStep() : null,
+                child: const Text(
+                  "التالي",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          );
+        }
 
         return Row(
           children: [
-            // BACK BUTTON
-            if (!isFirstStep)
-              Expanded(
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    side: const BorderSide(color: Colors.blue),
-                  ),
-                  onPressed: () {
-                    cubit.previousStep();
-                  },
-                  child: const Text(
-                    "رجوع",
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                ),
-              ),
-
-            if (!isFirstStep) const SizedBox(width: 10),
-
-            // NEXT / SUBMIT BUTTON
             Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: canGoNext ? Colors.blue[800] : Colors.grey,
-
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  side: const BorderSide(color: Colors.blue),
                 ),
+                onPressed: () => cubit.previousStep(),
+                child: const Text("رجوع", style: TextStyle(color: Colors.blue)),
+              ),
+            ),
 
+            const SizedBox(width: 10),
+
+            Expanded(
+              child: ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ).copyWith(
+                      backgroundColor: WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        if (states.contains(WidgetState.disabled)) {
+                          return AppColors.blue.withValues(alpha: 0.3);
+                        }
+                        return AppColors.blue;
+                      }),
+                    ),
                 onPressed: canGoNext
                     ? () {
                         if (isLastStep) {
@@ -64,7 +96,6 @@ class ActionButtons extends StatelessWidget {
                         }
                       }
                     : null,
-
                 child: Text(
                   isLastStep ? "إرسال" : "التالي",
                   style: const TextStyle(color: Colors.white),
