@@ -2,14 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safety_app/core/constants/app_colors.dart';
 import 'package:safety_app/core/utils/helpers/cache_helper.dart';
-<<<<<<< HEAD
 import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
-=======
-import 'package:safety_app/features/home/peresntation/pages/home_screen.dart';
-import 'package:safety_app/features/rating/presentation/pages/rating_screen.dart';
-import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
-import 'package:safety_app/features/support_chat/presentation/screens/support_chat_screen.dart';
->>>>>>> develop
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,11 +31,7 @@ class SafetyApp extends StatelessWidget {
           );
         },
         title: 'Safety App',
-<<<<<<< HEAD
         home: const BottomNav(),
-=======
-        home: RatingScreen(),
->>>>>>> develop
       ),
     );
   }

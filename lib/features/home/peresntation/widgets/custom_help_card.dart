@@ -22,7 +22,7 @@ class CustomHelpCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      height: 82.sp,
+      // height: 82.sp,
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(10),

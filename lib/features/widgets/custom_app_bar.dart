@@ -8,7 +8,7 @@ class CustomAppBar extends AppBar {
     : super(
         titleSpacing: 0,
         title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             spacing: 4,
             children: [
