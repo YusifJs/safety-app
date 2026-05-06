@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:safety_app/core/routing/routes.dart';
-import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
-import '../widgets/action_card.dart';
+import 'package:safety_app/core/utils/extensions/context_extension.dart';
+import 'package:safety_app/core/utils/imports.dart';
+import 'package:safety_app/features/home/peresntation/widgets/action_card.dart';
+import 'package:safety_app/features/widgets/custom_dialog_image.dart';
+import 'package:safety_app/features/widgets/notification_button.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF8FAFF),
       appBar: _buildAppBar(),
-      bottomNavigationBar: const BottomNav(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -33,7 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ActionCard(
                     title: "بلاغ عام",
                     icon: Icons.description_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.reportScreenController,
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -42,7 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: "رافقني",
                     icon: Icons.location_on_outlined,
                     onTap: () {
-                      Navigator.pushNamed(context, Routes.followMeScreen);
+                      context.showCustomDialog(
+                        dialogImage: CustomDialogImage(
+                          iconPath: AppAssets.lockIcon,
+                          iconColor: AppColors.white,
+                          bgColor: AppColors.blue,
+                        ),
+                        title: 'تنبيه : ميزة رافقني مدفوعة',
+                        description:
+                            'للاستفادة من التتبع الحي، يرجى الاشتراك في الباقة المميزة.',
+                        button1: 'اشترك',
+                        button2: 'إلغاء',
+                      );
+
+                      // لو عايز بعد كده تفعلها:
+                      // Navigator.pushNamed(context, Routes.followMeScreen);
                     },
                   ),
                 ),
@@ -77,32 +97,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leading: const Icon(Icons.notifications_none, color: Colors.grey),
+      backgroundColor: AppColors.mainBgColor,
+      actions: [NotificationButton()],
       title: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Image.asset(AppAssets.bird, scale: 3),
+          const SizedBox(width: 10),
           const Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "مرحباً، بان الرقب",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                "مرحباً",
+                style: TextStyle(color: Colors.black, fontSize: 14),
               ),
               Text(
                 "ابق في أمان",
-                style: TextStyle(color: Color(0xff174C8A), fontSize: 20),
+                style: TextStyle(
+                  color: Color(0xff174C8A),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
-          ),
-          const SizedBox(width: 10),
-          const CircleAvatar(
-            backgroundImage: AssetImage('assets/images/1775826274282 1.png'),
           ),
         ],
       ),
@@ -122,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Icon(Icons.arrow_back_ios, size: 14, color: Colors.black54),
           Spacer(),
-          Text("أكمل ملفك الشخصي لضمان حمايتك", style: TextStyle(fontSize: 20)),
+          Text("أكمل ملفك الشخصي لضمان حمايتك"),
           SizedBox(width: 10),
           Icon(Icons.warning_amber_rounded, color: Colors.orange),
         ],
@@ -163,9 +180,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  "اضغط مطولاً لإرسال إشارة استغاثة فورية",
+                  "اضغط مطولاً لإرسال إشارة استغاثة",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ],
@@ -175,25 +192,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  //================ Recent Activities Header ================
-
   Widget _buildRecentActivitiesHeader() {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "عرض الكل",
-          style: TextStyle(color: Color(0xff174C8A), fontSize: 12),
-        ),
-        Text(
-          "النشاطات الأخيرة",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        Text("عرض الكل", style: TextStyle(color: Color(0xff174C8A))),
+        Text("النشاطات الأخيرة", style: TextStyle(fontWeight: FontWeight.bold)),
       ],
     );
   }
-
-  //================ Activity Item ================
 
   Widget _buildActivityItem(
     String title,
@@ -216,31 +223,18 @@ class _HomeScreenState extends State<HomeScreen> {
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text(
-              status,
-              style: TextStyle(color: statusColor, fontSize: 15),
-            ),
+            child: Text(status, style: TextStyle(color: statusColor)),
           ),
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text(
-                time,
-                style: const TextStyle(color: Colors.grey, fontSize: 15),
-              ),
+              Text(time, style: const TextStyle(color: Colors.grey)),
             ],
-          ),
-          const SizedBox(width: 15),
-          const CircleAvatar(
-            backgroundColor: Color(0xffF1F4F7),
-            child: Icon(Icons.insert_drive_file_outlined, size: 20),
           ),
         ],
       ),
     );
   }
-
-  //================ Custom Bottom Nav ================
 }

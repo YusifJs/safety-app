@@ -14,13 +14,16 @@ class _MapPickerPageState extends State<MapPickerPage> {
   final MapController mapController = MapController();
 
   LatLng? selectedPoint;
-
-  final LatLng defaultCenter = const LatLng(30.0444, 31.2357); // Default: Cairo
+  final LatLng defaultCenter = const LatLng(30.0444, 31.2357);
 
   @override
   void initState() {
     super.initState();
-    getCurrentLocation();
+
+    // 🔥 optional: load after first frame (not blocking startup)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // getCurrentLocation(); // uncomment if you want auto load
+    });
   }
 
   Future<void> getCurrentLocation() async {
@@ -57,15 +60,13 @@ class _MapPickerPageState extends State<MapPickerPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Select Location"),
-
         actions: [
           IconButton(
             icon: const Icon(Icons.my_location),
-            onPressed: getCurrentLocation,
+            onPressed: getCurrentLocation, // 🔥 user trigger only
           ),
         ],
       ),
-
       body: Stack(
         children: [
           FlutterMap(
@@ -74,19 +75,18 @@ class _MapPickerPageState extends State<MapPickerPage> {
               initialCenter: selectedPoint ?? defaultCenter,
               initialZoom: 13,
 
+              // 🔥 lighter interaction (performance fix)
               interactionOptions: const InteractionOptions(
-                flags: InteractiveFlag.all,
+                flags: InteractiveFlag.drag | InteractiveFlag.pinchZoom,
               ),
 
               onTap: (tapPosition, point) {
                 if (!mounted) return;
-
                 setState(() {
                   selectedPoint = point;
                 });
               },
             ),
-
             children: [
               TileLayer(
                 urlTemplate:

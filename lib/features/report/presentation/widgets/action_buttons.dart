@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:safety_app/core/constants/app_colors.dart';
 import '../cubit/report_cubit.dart';
 import '../cubit/report_state.dart';
 
@@ -12,6 +13,44 @@ class ActionButtons extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<ReportCubit>();
 
+        final isFirstStep = state.currentStep == 1;
+        final isLastStep = state.currentStep == 3;
+
+        final canGoNext = state.currentStep == 1
+            ? state.selectedReportType != null
+            : true;
+
+        if (isFirstStep) {
+          return Center(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ).copyWith(
+                      backgroundColor: WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        if (states.contains(WidgetState.disabled)) {
+                          return AppColors.blue.withValues(alpha: 0.3);
+                        }
+                        return AppColors.blue;
+                      }),
+                    ),
+                onPressed: canGoNext ? () => cubit.nextStep() : null,
+                child: const Text(
+                  "التالي",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          );
+        }
+
         return Row(
           children: [
             Expanded(
@@ -23,13 +62,7 @@ class ActionButtons extends StatelessWidget {
                   ),
                   side: const BorderSide(color: Colors.blue),
                 ),
-                onPressed: () {
-                  if (state.currentStep > 1) {
-                    cubit.previousStep();
-                  } else {
-                    Navigator.pop(context);
-                  }
-                },
+                onPressed: () => cubit.previousStep(),
                 child: const Text("رجوع", style: TextStyle(color: Colors.blue)),
               ),
             ),
@@ -38,21 +71,34 @@ class ActionButtons extends StatelessWidget {
 
             Expanded(
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[800],
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  if (state.currentStep < 3) {
-                    cubit.nextStep();
-                  }
-                },
+                style:
+                    ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ).copyWith(
+                      backgroundColor: WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        if (states.contains(WidgetState.disabled)) {
+                          return AppColors.blue.withValues(alpha: 0.3);
+                        }
+                        return AppColors.blue;
+                      }),
+                    ),
+                onPressed: canGoNext
+                    ? () {
+                        if (isLastStep) {
+                          cubit.submitReport();
+                        } else {
+                          cubit.nextStep();
+                        }
+                      }
+                    : null,
                 child: Text(
-                  style: TextStyle(color: Colors.white),
-                  state.currentStep == 3 ? "إنهاء" : "التالي",
+                  isLastStep ? "إرسال" : "التالي",
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ),
