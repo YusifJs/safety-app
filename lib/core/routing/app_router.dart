@@ -5,6 +5,7 @@ import 'package:safety_app/features/auth/presentation/pages/sign_up_screen.dart'
 import 'package:safety_app/features/follow-me/presentation/screens/follow_me_screen.dart';
 import 'package:safety_app/features/home/peresntation/pages/home_page.dart';
 import 'package:safety_app/features/onboarding/onboarding_screen.dart';
+import 'package:safety_app/features/payment-plan/presentation/payment_methods_screen.dart';
 import 'package:safety_app/features/rating/presentation/pages/rating_screen.dart';
 import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
 import 'package:safety_app/features/splash/animated_splash_screen.dart';
@@ -31,6 +32,9 @@ class AppRouter {
       case Routes.followMeScreen:
         return MaterialPageRoute(builder: (_) => RafiqnyMapScreen());
 
+      case Routes.PaymentScreen:
+        return MaterialPageRoute(builder: (_) => PaymentMethodsScreen());
+
       case Routes.supportChat:
         return MaterialPageRoute(builder: (_) => SupportChatScreen());
 
@@ -43,9 +47,7 @@ class AppRouter {
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
+            body: Center(child: Text('No route defined for ${settings.name}')),
           ),
         );
     }

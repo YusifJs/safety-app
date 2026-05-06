@@ -6,6 +6,7 @@ class Routes {
 
   static const String homeScreen = '/home';
   static const String followMeScreen = '/follow-me';
+  static const String PaymentScreen = '/payment';
 
   static const String supportChat = '/supportChat';
   static const String reportScreenController = '/reportScreenController';

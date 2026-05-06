@@ -53,6 +53,13 @@ class ReportCubit extends Cubit<ReportState> {
     emit(state.copyWith(showSafetyCheck: true));
   }
 
+  void activateManualReport() {
+    emit(state.copyWith(
+      showSafetyCheck: false,
+      showAlmostFinishedDialog: false,
+    ));
+  }
+
   void finishTrip() {
     _tripTimer?.cancel();
     emit(state.copyWith(
@@ -144,17 +151,9 @@ class ReportCubit extends Cubit<ReportState> {
     }
   }
 
-  void toggleNow(bool value) {
-    emit(state.copyWith(isNow: value));
-  }
-
-  void setDate(DateTime date) {
-    emit(state.copyWith(date: date));
-  }
-
-  void setTime(TimeOfDay time) {
-    emit(state.copyWith(time: time));
-  }
+  void toggleNow(bool value) => emit(state.copyWith(isNow: value));
+  void setDate(DateTime date) => emit(state.copyWith(date: date));
+  void setTime(TimeOfDay time) => emit(state.copyWith(time: time));
 
   // ================== REPORT ==================
 
@@ -177,22 +176,14 @@ class ReportCubit extends Cubit<ReportState> {
 
   void addImages(List<String> paths) {
     final items = paths.map((p) => UploadItem(path: p)).toList();
-
     emit(state.copyWith(images: [...state.images, ...items]));
-
-    for (final item in items) {
-      _uploadImage(item);
-    }
+    for (final item in items) _uploadImage(item);
   }
 
   void addFiles(List<String> paths) {
     final items = paths.map((p) => UploadItem(path: p)).toList();
-
     emit(state.copyWith(files: [...state.files, ...items]));
-
-    for (final item in items) {
-      _uploadFile(item);
-    }
+    for (final item in items) _uploadFile(item);
   }
 
   Future<void> _uploadImage(UploadItem item) async {
@@ -208,9 +199,7 @@ class ReportCubit extends Cubit<ReportState> {
 
   Future<void> _uploadFile(UploadItem item) async {
     _updateItem(item, status: UploadStatus.uploading);
-
     await Future.delayed(const Duration(seconds: 2));
-
     _updateItem(item, progress: 1, status: UploadStatus.success);
   }
 
