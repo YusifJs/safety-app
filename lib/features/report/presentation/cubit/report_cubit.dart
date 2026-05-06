@@ -1,12 +1,136 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:safety_app/features/report/presentation/widgets/upload_model.dart';
 import 'report_state.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:dio/dio.dart';
 
 class ReportCubit extends Cubit<ReportState> {
+  final Dio _dio = Dio();
+  Timer? _tripTimer;
+
+  final String _orsApiKey = "YOUR_API_KEY";
+
   ReportCubit() : super(const ReportState());
+
+  // ================== TRIP LOGIC ==================
+
+  void startTrip() {
+    if (state.duration == null) return;
+
+    int initialMinutes = int.tryParse(state.duration!.split(' ')[0]) ?? 0;
+    int totalSeconds = initialMinutes * 60;
+
+    emit(state.copyWith(
+      isTripStarted: true,
+      remainingSeconds: totalSeconds,
+      remainingTime: initialMinutes,
+    ));
+
+    _tripTimer?.cancel();
+    _tripTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (state.remainingSeconds > 0) {
+        int newSeconds = state.remainingSeconds - 1;
+
+        emit(state.copyWith(
+          remainingSeconds: newSeconds,
+          remainingTime: (newSeconds / 60).ceil(),
+        ));
+
+        if (newSeconds == 30) {
+          emit(state.copyWith(showAlmostFinishedDialog: true));
+        }
+      } else {
+        timer.cancel();
+        _triggerAutomaticReport();
+      }
+    });
+  }
+
+  void _triggerAutomaticReport() {
+    emit(state.copyWith(showSafetyCheck: true));
+  }
+
+  void finishTrip() {
+    _tripTimer?.cancel();
+    emit(state.copyWith(
+      isTripStarted: false,
+      showSafetyCheck: false,
+      showAlmostFinishedDialog: false,
+      routePoints: [],
+      distance: null,
+      duration: null,
+      remainingSeconds: 0,
+    ));
+  }
+
+  // ================== LOCATION ==================
+
+  Future<void> setLocation(LatLng location) async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        location.latitude,
+        location.longitude,
+      );
+
+      String name = placemarks.isNotEmpty
+          ? "${placemarks.first.street}, ${placemarks.first.locality}"
+          : "موقع غير مسمى";
+
+      emit(state.copyWith(selectedLocation: location, locationName: name));
+      await getDirections(location);
+    } catch (e) {
+      emit(state.copyWith(
+        selectedLocation: location,
+        locationName: "${location.latitude}, ${location.longitude}",
+      ));
+      await getDirections(location);
+    }
+  }
+
+  Future<void> getDirections(LatLng destination) async {
+    LatLng startLocation = const LatLng(30.4606, 31.1856);
+
+    emit(state.copyWith(isLoadingRoute: true));
+
+    try {
+      final response = await _dio.get(
+        'https://api.openrouteservice.org/v2/directions/driving-car',
+        queryParameters: {
+          'api_key': _orsApiKey,
+          'start': '${startLocation.longitude},${startLocation.latitude}',
+          'end': '${destination.longitude},${destination.latitude}',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final feature = response.data['features'][0];
+        final coords = feature['geometry']['coordinates'] as List;
+
+        List<LatLng> routePoints =
+            coords.map((c) => LatLng(c[1].toDouble(), c[0].toDouble())).toList();
+
+        double distanceInKm =
+            feature['properties']['summary']['distance'] / 1000;
+
+        double durationInMin =
+            feature['properties']['summary']['duration'] / 60;
+
+        emit(state.copyWith(
+          routePoints: routePoints,
+          distance: "${distanceInKm.toStringAsFixed(1)} كم",
+          duration: "${durationInMin.toInt()} دقيقة",
+          isLoadingRoute: false,
+        ));
+      }
+    } catch (e) {
+      emit(state.copyWith(isLoadingRoute: false));
+    }
+  }
+
+  // ================== STEPS ==================
 
   void nextStep() {
     if (state.currentStep < 3) {
@@ -32,45 +156,13 @@ class ReportCubit extends Cubit<ReportState> {
     emit(state.copyWith(time: time));
   }
 
-  Future<void> setLocation(LatLng location) async {
-    try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        location.latitude,
-        location.longitude,
-      );
-
-      String name;
-
-      if (placemarks.isNotEmpty) {
-        final p = placemarks.first;
-
-        name = [
-          p.street,
-          p.subLocality,
-          p.locality,
-          p.country,
-        ].where((e) => e != null && e.isNotEmpty).join(", ");
-      } else {
-        name = "${location.latitude}, ${location.longitude}";
-      }
-
-      emit(state.copyWith(selectedLocation: location, locationName: name));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          selectedLocation: location,
-          locationName: "${location.latitude}, ${location.longitude}",
-        ),
-      );
-    }
-  }
+  // ================== REPORT ==================
 
   Future<void> submitReport() async {
     emit(state.copyWith(isSubmitting: true));
 
     try {
       await Future.delayed(const Duration(seconds: 2));
-
       emit(state.copyWith(isSubmitting: false, isSubmitted: true));
     } catch (e) {
       emit(state.copyWith(isSubmitting: false));
@@ -80,6 +172,8 @@ class ReportCubit extends Cubit<ReportState> {
   void selectReportType(String type) {
     emit(state.copyWith(selectedReportType: type));
   }
+
+  // ================== UPLOAD ==================
 
   void addImages(List<String> paths) {
     final items = paths.map((p) => UploadItem(path: p)).toList();
@@ -106,7 +200,6 @@ class ReportCubit extends Cubit<ReportState> {
 
     for (int i = 1; i <= 10; i++) {
       await Future.delayed(const Duration(milliseconds: 200));
-
       _updateItem(item, progress: i / 10, status: UploadStatus.uploading);
     }
 
@@ -121,7 +214,8 @@ class ReportCubit extends Cubit<ReportState> {
     _updateItem(item, progress: 1, status: UploadStatus.success);
   }
 
-  void _updateItem(UploadItem item, {double? progress, UploadStatus? status}) {
+  void _updateItem(UploadItem item,
+      {double? progress, UploadStatus? status}) {
     final updatedImages = state.images.map((e) {
       if (e.path == item.path) {
         return e.copyWith(progress: progress, status: status);
@@ -137,5 +231,13 @@ class ReportCubit extends Cubit<ReportState> {
     }).toList();
 
     emit(state.copyWith(images: updatedImages, files: updatedFiles));
+  }
+
+  // ================== CLEANUP ==================
+
+  @override
+  Future<void> close() {
+    _tripTimer?.cancel();
+    return super.close();
   }
 }

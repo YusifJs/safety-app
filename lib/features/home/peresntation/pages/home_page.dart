@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:safety_app/core/routing/routes.dart';
 import 'package:safety_app/core/utils/extensions/context_extension.dart';
 import 'package:safety_app/core/utils/imports.dart';
 import 'package:safety_app/features/home/peresntation/widgets/action_card.dart';
@@ -32,7 +34,12 @@ class _HomePageState extends State<HomePage> {
                   child: ActionCard(
                     title: "بلاغ عام",
                     icon: Icons.description_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.reportScreenController,
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -47,12 +54,15 @@ class _HomePageState extends State<HomePage> {
                           iconColor: AppColors.white,
                           bgColor: AppColors.blue,
                         ),
-                        title: 'تنبيه : ‘ميزة رافقني’ حصرية لمشتركين سلام مميز',
+                        title: 'تنبيه : ميزة رافقني مدفوعة',
                         description:
-                            ' أنت تستخدم حالياً النسخة المجانية. للاستفادة من خاصية التتبع الحي والحماية الاستباقية، يرجى الاشتراك في باقة "مميز" لتنعم براحة بال كاملة أينما كنت.',
-                        button1: 'اشترك في سلام مميز',
-                        button2: 'العودة للرئيسية',
+                            'للاستفادة من التتبع الحي، يرجى الاشتراك في الباقة المميزة.',
+                        button1: 'اشترك',
+                        button2: 'إلغاء',
                       );
+
+                      // لو عايز بعد كده تفعلها:
+                      // Navigator.pushNamed(context, Routes.followMeScreen);
                     },
                   ),
                 ),
@@ -83,6 +93,39 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  //================ AppBar ================
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: AppColors.mainBgColor,
+      actions: [NotificationButton()],
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Image.asset(AppAssets.bird, scale: 3),
+          const SizedBox(width: 10),
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "مرحباً",
+                style: TextStyle(color: Colors.black, fontSize: 14),
+              ),
+              Text(
+                "ابق في أمان",
+                style: TextStyle(
+                  color: Color(0xff174C8A),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   //================ Warning Banner ================
 
   Widget _buildWarningBanner() {
@@ -96,41 +139,9 @@ class _HomePageState extends State<HomePage> {
         children: [
           Icon(Icons.arrow_back_ios, size: 14, color: Colors.black54),
           Spacer(),
-          Text("أكمل ملفك الشخصي لضمان حمايتك", style: TextStyle(fontSize: 20)),
+          Text("أكمل ملفك الشخصي لضمان حمايتك"),
           SizedBox(width: 10),
           Icon(Icons.warning_amber_rounded, color: Colors.orange),
-        ],
-      ),
-    );
-  }
-
-  //================ AppBar ================
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: AppColors.mainBgColor,
-      actions: [NotificationButton()],
-      title: Row(
-        spacing: 10,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Image.asset(AppAssets.bird, scale: 3),
-          const Column(
-            children: [
-              Text(
-                "مرحباً، بان الرقب",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                "ابق في أمان",
-                style: TextStyle(color: Color(0xff174C8A), fontSize: 20),
-              ),
-            ],
-          ),
         ],
       ),
     );
@@ -169,9 +180,9 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  "اضغط مطولاً لإرسال إشارة استغاثة فورية",
+                  "اضغط مطولاً لإرسال إشارة استغاثة",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ],
@@ -181,25 +192,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  //================ Recent Activities Header ================
-
   Widget _buildRecentActivitiesHeader() {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "عرض الكل",
-          style: TextStyle(color: Color(0xff174C8A), fontSize: 12),
-        ),
-        Text(
-          "النشاطات الأخيرة",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        Text("عرض الكل", style: TextStyle(color: Color(0xff174C8A))),
+        Text("النشاطات الأخيرة", style: TextStyle(fontWeight: FontWeight.bold)),
       ],
     );
   }
-
-  //================ Activity Item ================
 
   Widget _buildActivityItem(
     String title,
@@ -222,26 +223,15 @@ class _HomePageState extends State<HomePage> {
               color: statusColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text(
-              status,
-              style: TextStyle(color: statusColor, fontSize: 15),
-            ),
+            child: Text(status, style: TextStyle(color: statusColor)),
           ),
           const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text(
-                time,
-                style: const TextStyle(color: Colors.grey, fontSize: 15),
-              ),
+              Text(time, style: const TextStyle(color: Colors.grey)),
             ],
-          ),
-          const SizedBox(width: 15),
-          const CircleAvatar(
-            backgroundColor: Color(0xffF1F4F7),
-            child: Icon(Icons.insert_drive_file_outlined, size: 20),
           ),
         ],
       ),

@@ -1,15 +1,31 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:safety_app/features/report/presentation/widgets/upload_model.dart';
 
-class ReportState extends Equatable {
+class ReportState {
   final int currentStep;
   final bool isNow;
-  final DateTime? date;
-  final TimeOfDay? time;
+
+  // route
+  final String? distance;
+  final String? duration;
+  final bool isLoadingRoute;
+  final List<LatLng> routePoints;
   final LatLng? selectedLocation;
   final String? locationName;
+
+  // trip
+  final bool isTripStarted;
+  final int? remainingTime;
+  final int remainingSeconds;
+  final bool showSafetyCheck;
+  final bool showAlmostFinishedDialog;
+
+  // date & time
+  final DateTime? date;
+  final TimeOfDay? time;
+
+  // report
   final String? selectedReportType;
   final List<UploadItem> images;
   final List<UploadItem> files;
@@ -20,61 +36,85 @@ class ReportState extends Equatable {
   const ReportState({
     this.currentStep = 1,
     this.isNow = true,
-    this.date,
-    this.time,
+
+    this.distance,
+    this.duration,
+    this.isLoadingRoute = false,
+    this.routePoints = const [],
     this.selectedLocation,
     this.locationName,
-    this.isSubmitting = false,
-    this.isSubmitted = false,
-    this.errorMessage,
+
+    this.isTripStarted = false,
+    this.remainingTime,
+    this.remainingSeconds = 0,
+    this.showSafetyCheck = false,
+    this.showAlmostFinishedDialog = false,
+
+    this.date,
+    this.time,
+
     this.selectedReportType,
     this.images = const [],
     this.files = const [],
+    this.isSubmitting = false,
+    this.isSubmitted = false,
+    this.errorMessage,
   });
 
   ReportState copyWith({
     int? currentStep,
     bool? isNow,
-    DateTime? date,
-    TimeOfDay? time,
+
+    String? distance,
+    String? duration,
+    bool? isLoadingRoute,
+    List<LatLng>? routePoints,
     LatLng? selectedLocation,
     String? locationName,
-    bool? isSubmitting,
-    bool? isSubmitted,
-    String? errorMessage,
+
+    bool? isTripStarted,
+    int? remainingTime,
+    int? remainingSeconds,
+    bool? showSafetyCheck,
+    bool? showAlmostFinishedDialog,
+
+    DateTime? date,
+    TimeOfDay? time,
+
     String? selectedReportType,
     List<UploadItem>? images,
     List<UploadItem>? files,
+    bool? isSubmitting,
+    bool? isSubmitted,
+    String? errorMessage,
   }) {
     return ReportState(
       currentStep: currentStep ?? this.currentStep,
       isNow: isNow ?? this.isNow,
-      date: date ?? this.date,
-      time: time ?? this.time,
+
+      distance: distance ?? this.distance,
+      duration: duration ?? this.duration,
+      isLoadingRoute: isLoadingRoute ?? this.isLoadingRoute,
+      routePoints: routePoints ?? this.routePoints,
       selectedLocation: selectedLocation ?? this.selectedLocation,
       locationName: locationName ?? this.locationName,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSubmitted: isSubmitted ?? this.isSubmitted,
-      errorMessage: errorMessage ?? this.errorMessage,
+
+      isTripStarted: isTripStarted ?? this.isTripStarted,
+      remainingTime: remainingTime ?? this.remainingTime,
+      remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      showSafetyCheck: showSafetyCheck ?? this.showSafetyCheck,
+      showAlmostFinishedDialog:
+          showAlmostFinishedDialog ?? this.showAlmostFinishedDialog,
+
+      date: date ?? this.date,
+      time: time ?? this.time,
+
       selectedReportType: selectedReportType ?? this.selectedReportType,
       images: images ?? this.images,
       files: files ?? this.files,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      isSubmitted: isSubmitted ?? this.isSubmitted,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
-
-  @override
-  List<Object?> get props => [
-    currentStep,
-    isNow,
-    date,
-    time,
-    selectedLocation,
-    locationName,
-    isSubmitting,
-    isSubmitted,
-    errorMessage,
-    selectedReportType,
-    images,
-    files,
-  ];
 }
