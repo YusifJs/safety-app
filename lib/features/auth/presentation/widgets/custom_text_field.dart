@@ -15,11 +15,16 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end, // عشان الكلام يبقى عربي جهة اليمين
+      crossAxisAlignment:
+          CrossAxisAlignment.end, // عشان الكلام يبقى عربي جهة اليمين
       children: [
         Text(
           label,
-          style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Color(0xff174C8A)),
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff174C8A),
+          ),
         ),
         const SizedBox(height: 8),
         TextField(

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:safety_app/core/di/dep_injection.dart';
-import 'package:safety_app/core/helpers/cache_helper.dart';
 import 'package:safety_app/core/routing/app_router.dart';
 import 'package:safety_app/core/routing/routes.dart';
+
+import 'package:safety_app/core/constants/app_colors.dart';
+import 'package:safety_app/core/utils/helpers/cache_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   await setupGetIt();
-  runApp(SafetyApp());
+  runApp(const SafetyApp());
 }
 
 class SafetyApp extends StatelessWidget {
@@ -18,21 +21,30 @@ class SafetyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+      designSize: const Size(393, 852),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Safety App',
+
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            scaffoldBackgroundColor: AppColors.mainBgColor,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: AppColors.mainBgColor,
+            ),
           ),
 
-          initialRoute: Routes.PaymentScreen,
-          onGenerateRoute: AppRouter().generateRoute,
+          builder: (context, child) {
+            return Directionality(
+              textDirection: TextDirection.rtl,
+              child: child!,
+            );
+          },
 
-          // home: const ReportPagesController(),
+          initialRoute: Routes.homeScreen,
+          onGenerateRoute: AppRouter().generateRoute,
         );
       },
     );
