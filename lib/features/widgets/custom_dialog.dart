@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:safety_app/core/utils/imports.dart';
 import 'package:safety_app/features/widgets/custom_elevated_button.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
-  final String description;
+  final String? description;
   final String button1;
   final String button2;
   final Widget? dialogImage;
@@ -11,7 +12,7 @@ class CustomDialog extends StatelessWidget {
   const CustomDialog({
     super.key,
     required this.title,
-    required this.description,
+    this.description,
     required this.button1,
     required this.button2,
     this.dialogImage,
@@ -19,54 +20,78 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        padding: const EdgeInsets.only(
-          left: 12,
-          right: 12,
-          bottom: 52,
-          top: 30,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: AppColors.white,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // ✅ SAFE IMAGE HANDLING
-            if (dialogImage != null) dialogImage!,
+    final size = MediaQuery.of(context).size;
 
-            if (dialogImage != null) SizedBox(height: 24.sp),
+    final verticalSpace = size.height * 0.28;
 
-            Text(
-              title,
-              style: AppTextStyle.blackBold20,
-              textAlign: TextAlign.center,
+    return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.4),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: verticalSpace,
+          ),
+          child: Center(
+            child: Container(
+              width: 271,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (dialogImage != null) ...[
+                    dialogImage!,
+                    const SizedBox(height: 20),
+                  ],
+
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyle.blackBold20,
+                  ),
+
+                  if (description != null &&
+                      description!.trim().isNotEmpty) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      description!,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.blackRegular12,
+                    ),
+                  ],
+
+                  const SizedBox(height: 20),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: button1,
+                      backgroundColor: AppColors.blue,
+                      onClick: () => Navigator.pop(context),
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: button2,
+                      backgroundColor: AppColors.white,
+                      textStyle: AppTextStyle.blueBold16,
+                      onClick: () => Navigator.pop(context),
+                    ),
+                  ),
+                ],
+              ),
             ),
-
-            SizedBox(height: 16.sp),
-
-            Text(
-              description,
-              style: AppTextStyle.blackRegular12,
-              textAlign: TextAlign.center,
-            ),
-
-            SizedBox(height: 24.sp),
-
-            CustomElevatedButton(text: button1),
-
-            SizedBox(height: 8.sp),
-
-            CustomElevatedButton(
-              text: button2,
-              backgroundColor: AppColors.transperant,
-              textStyle: AppTextStyle.blueBold16,
-            ),
-          ],
+          ),
         ),
       ),
     );
