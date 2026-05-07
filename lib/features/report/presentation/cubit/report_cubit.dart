@@ -23,21 +23,25 @@ class ReportCubit extends Cubit<ReportState> {
     int initialMinutes = int.tryParse(state.duration!.split(' ')[0]) ?? 0;
     int totalSeconds = initialMinutes * 60;
 
-    emit(state.copyWith(
-      isTripStarted: true,
-      remainingSeconds: totalSeconds,
-      remainingTime: initialMinutes,
-    ));
+    emit(
+      state.copyWith(
+        isTripStarted: true,
+        remainingSeconds: totalSeconds,
+        remainingTime: initialMinutes,
+      ),
+    );
 
     _tripTimer?.cancel();
     _tripTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (state.remainingSeconds > 0) {
         int newSeconds = state.remainingSeconds - 1;
 
-        emit(state.copyWith(
-          remainingSeconds: newSeconds,
-          remainingTime: (newSeconds / 60).ceil(),
-        ));
+        emit(
+          state.copyWith(
+            remainingSeconds: newSeconds,
+            remainingTime: (newSeconds / 60).ceil(),
+          ),
+        );
 
         if (newSeconds == 30) {
           emit(state.copyWith(showAlmostFinishedDialog: true));
@@ -54,23 +58,24 @@ class ReportCubit extends Cubit<ReportState> {
   }
 
   void activateManualReport() {
-    emit(state.copyWith(
-      showSafetyCheck: false,
-      showAlmostFinishedDialog: false,
-    ));
+    emit(
+      state.copyWith(showSafetyCheck: false, showAlmostFinishedDialog: false),
+    );
   }
 
   void finishTrip() {
     _tripTimer?.cancel();
-    emit(state.copyWith(
-      isTripStarted: false,
-      showSafetyCheck: false,
-      showAlmostFinishedDialog: false,
-      routePoints: [],
-      distance: null,
-      duration: null,
-      remainingSeconds: 0,
-    ));
+    emit(
+      state.copyWith(
+        isTripStarted: false,
+        showSafetyCheck: false,
+        showAlmostFinishedDialog: false,
+        routePoints: [],
+        distance: null,
+        duration: null,
+        remainingSeconds: 0,
+      ),
+    );
   }
 
   // ================== LOCATION ==================
@@ -89,10 +94,12 @@ class ReportCubit extends Cubit<ReportState> {
       emit(state.copyWith(selectedLocation: location, locationName: name));
       await getDirections(location);
     } catch (e) {
-      emit(state.copyWith(
-        selectedLocation: location,
-        locationName: "${location.latitude}, ${location.longitude}",
-      ));
+      emit(
+        state.copyWith(
+          selectedLocation: location,
+          locationName: "${location.latitude}, ${location.longitude}",
+        ),
+      );
       await getDirections(location);
     }
   }
@@ -116,8 +123,9 @@ class ReportCubit extends Cubit<ReportState> {
         final feature = response.data['features'][0];
         final coords = feature['geometry']['coordinates'] as List;
 
-        List<LatLng> routePoints =
-            coords.map((c) => LatLng(c[1].toDouble(), c[0].toDouble())).toList();
+        List<LatLng> routePoints = coords
+            .map((c) => LatLng(c[1].toDouble(), c[0].toDouble()))
+            .toList();
 
         double distanceInKm =
             feature['properties']['summary']['distance'] / 1000;
@@ -125,12 +133,14 @@ class ReportCubit extends Cubit<ReportState> {
         double durationInMin =
             feature['properties']['summary']['duration'] / 60;
 
-        emit(state.copyWith(
-          routePoints: routePoints,
-          distance: "${distanceInKm.toStringAsFixed(1)} كم",
-          duration: "${durationInMin.toInt()} دقيقة",
-          isLoadingRoute: false,
-        ));
+        emit(
+          state.copyWith(
+            routePoints: routePoints,
+            distance: "${distanceInKm.toStringAsFixed(1)} كم",
+            duration: "${durationInMin.toInt()} دقيقة",
+            isLoadingRoute: false,
+          ),
+        );
       }
     } catch (e) {
       emit(state.copyWith(isLoadingRoute: false));
@@ -158,14 +168,20 @@ class ReportCubit extends Cubit<ReportState> {
   // ================== REPORT ==================
 
   Future<void> submitReport() async {
+    print("SUBMIT CLICKED");
+
     emit(state.copyWith(isSubmitting: true));
 
-    try {
-      await Future.delayed(const Duration(seconds: 2));
-      emit(state.copyWith(isSubmitting: false, isSubmitted: true));
-    } catch (e) {
-      emit(state.copyWith(isSubmitting: false));
-    }
+    await Future.delayed(const Duration(seconds: 2));
+
+    emit(
+      state.copyWith(
+        isSubmitting: false,
+        submitEventId: state.submitEventId + 1,
+      ),
+    );
+
+    print("STATE EMITTED");
   }
 
   void selectReportType(String type) {
@@ -203,8 +219,7 @@ class ReportCubit extends Cubit<ReportState> {
     _updateItem(item, progress: 1, status: UploadStatus.success);
   }
 
-  void _updateItem(UploadItem item,
-      {double? progress, UploadStatus? status}) {
+  void _updateItem(UploadItem item, {double? progress, UploadStatus? status}) {
     final updatedImages = state.images.map((e) {
       if (e.path == item.path) {
         return e.copyWith(progress: progress, status: status);

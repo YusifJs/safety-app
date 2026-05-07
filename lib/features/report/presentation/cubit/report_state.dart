@@ -30,9 +30,8 @@ class ReportState {
   final List<UploadItem> images;
   final List<UploadItem> files;
   final bool isSubmitting;
-  final bool isSubmitted;
   final String? errorMessage;
-
+  final int submitEventId;
   const ReportState({
     this.currentStep = 1,
     this.isNow = true,
@@ -57,8 +56,8 @@ class ReportState {
     this.images = const [],
     this.files = const [],
     this.isSubmitting = false,
-    this.isSubmitted = false,
     this.errorMessage,
+    this.submitEventId = 0,
   });
 
   ReportState copyWith({
@@ -85,7 +84,7 @@ class ReportState {
     List<UploadItem>? images,
     List<UploadItem>? files,
     bool? isSubmitting,
-    bool? isSubmitted,
+    int? submitEventId,
     String? errorMessage,
   }) {
     return ReportState(
@@ -113,7 +112,7 @@ class ReportState {
       images: images ?? this.images,
       files: files ?? this.files,
       isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSubmitted: isSubmitted ?? this.isSubmitted,
+      submitEventId: submitEventId ?? this.submitEventId,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
