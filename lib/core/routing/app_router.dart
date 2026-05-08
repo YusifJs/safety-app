@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:safety_app/core/routing/routes.dart';
+import 'package:safety_app/features/Report_details/views/report_details_view.dart';
+import 'package:safety_app/features/Reports_register/views/widgets/report_page_view.dart';
+import 'package:safety_app/features/alerts/views/alerts_view.dart';
 import 'package:safety_app/features/auth/presentation/pages/login_screen.dart';
 import 'package:safety_app/features/auth/presentation/pages/sign_up_screen.dart';
 import 'package:safety_app/features/follow-me/presentation/screens/follow_me_screen.dart';
 import 'package:safety_app/features/home/peresntation/pages/home_page.dart';
+import 'package:safety_app/features/notification_settings/views/notification_settings_view.dart';
 import 'package:safety_app/features/onboarding/onboarding_screen.dart';
 import 'package:safety_app/features/payment-plan/presentation/payment_methods_screen.dart';
+import 'package:safety_app/features/profile(1)/views/profile_1_view.dart';
+import 'package:safety_app/features/profile(2)/views/profile(2)_page_view.dart';
 import 'package:safety_app/features/rating/presentation/pages/rating_screen.dart';
 import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
+import 'package:safety_app/features/report_types/views/report_types_view.dart';
 import 'package:safety_app/features/splash/animated_splash_screen.dart';
 import 'package:safety_app/features/support_chat/presentation/screens/support_chat_screen.dart';
 
@@ -43,6 +50,27 @@ class AppRouter {
 
       case Routes.ratingScreen:
         return MaterialPageRoute(builder: (_) => RatingScreen());
+
+      case Routes.reportRegisterScreen:
+        return MaterialPageRoute(builder: (_) => ReportPageView());
+
+      case Routes.reportTypeScreen:
+        return MaterialPageRoute(builder: (_) => ReportTypesView());
+
+      case Routes.reportDetailsScreen:
+        return MaterialPageRoute(builder: (_) => ReportDetailsView());
+
+      case Routes.profileFirstScreen:
+        return MaterialPageRoute(builder: (_) => Profile1View());
+
+      case Routes.profileSecondScreen:
+        return MaterialPageRoute(builder: (_) => ProfileSecondPageView());
+
+      case Routes.notificationSettingsScreen:
+        return MaterialPageRoute(builder: (_) => NotificationSettingsView());
+
+      case Routes.alertsScreen:
+        return MaterialPageRoute(builder: (_) => AlertsView());
 
       default:
         return MaterialPageRoute(
