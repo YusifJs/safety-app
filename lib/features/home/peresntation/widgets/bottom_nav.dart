@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:safety_app/features/home/peresntation/pages/help_and_support_pages/help_page.dart';
 import 'package:safety_app/features/home/peresntation/pages/home_page.dart';
+import 'package:safety_app/features/possessions/presentation/pages/possessions_screen.dart';
+import 'package:safety_app/features/profile(1)/views/profile_1_view.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -12,9 +14,9 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   final List<Widget> _screens = [
     const HomePage(),
+    const PossessionsScreen(),
     const HelpPage(),
-    const HelpPage(),
-    const HelpPage(),
+    const Profile1View(),
   ];
 
   int _selectedIndex = 0;

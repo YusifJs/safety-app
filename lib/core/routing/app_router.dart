@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:safety_app/core/routing/routes.dart';
+import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
 import 'package:safety_app/features/login/login_screen.dart';
 import 'package:safety_app/features/onboarding/onboarding_screen.dart';
+import 'package:safety_app/features/possessions/presentation/pages/add_property_screen.dart';
+import 'package:safety_app/features/possessions/presentation/pages/possessions_screen.dart';
 import 'package:safety_app/features/rating/presentation/pages/rating_screen.dart';
 import 'package:safety_app/features/report/presentation/pages/report_pages_controller.dart';
+import 'package:safety_app/features/security_settings/peresentation/pages/security_seeting_screen.dart';
+import 'package:safety_app/features/security_settings/peresentation/pages/secutity_sett_emty_state.dart';
 import 'package:safety_app/features/splash/animated_splash_screen.dart';
 import 'package:safety_app/features/support_chat/presentation/screens/support_chat_screen.dart';
 
@@ -17,6 +22,16 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => OnboardingScreen());
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
+        case Routes.bottomNav:
+        return MaterialPageRoute(builder: (_) => const BottomNav());
+        case Routes.possessionsScreen:
+        return MaterialPageRoute(builder: (_) => const PossessionsScreen());
+        case Routes.securitySettings:
+        return MaterialPageRoute(builder: (_) => const SecuritySettingsScreen());
+        case Routes.addPossession:
+        return MaterialPageRoute(builder: (_) => const AddPropertyScreen());
+        case Routes.securitySettingsEmpty:
+        return MaterialPageRoute(builder: (_) => const SecutitySettEmtpyState());
       case Routes.supportChat:
         return MaterialPageRoute(builder: (_) => SupportChatScreen());
       case Routes.reportScreenController:

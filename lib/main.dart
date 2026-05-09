@@ -33,7 +33,7 @@ class SafetyApp extends StatelessWidget {
           );
         },
         title: 'Safety App',
-        home: const SecutitySettEmtpyState(),
+        home: const BottomNav(),
       ),
     );
   }
