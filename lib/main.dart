@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:safety_app/core/constants/app_colors.dart';
 import 'package:safety_app/core/utils/helpers/cache_helper.dart';
 import 'package:safety_app/features/home/peresntation/widgets/bottom_nav.dart';
+import 'package:safety_app/features/security_settings/peresentation/pages/security_seeting_screen.dart';
+import 'package:safety_app/features/security_settings/peresentation/pages/secutity_sett_emty_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +33,7 @@ class SafetyApp extends StatelessWidget {
           );
         },
         title: 'Safety App',
-        home: const BottomNav(),
+        home: const SecutitySettEmtpyState(),
       ),
     );
   }
