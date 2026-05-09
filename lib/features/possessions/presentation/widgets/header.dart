@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             text,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           const Spacer(),
           const NotificationButton(),
